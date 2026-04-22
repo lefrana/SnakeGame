@@ -8,7 +8,7 @@ public class SnakeBodyManager : MonoBehaviour
 
     void Start()
     {
-        //Grow(transform.position - new Vector3(0.5f, 0, 0));
+        Grow(transform.position - new Vector3(-10.0f, 0, 0));
     }
 
     public void MoveBody(Vector3 prevHeadPos)

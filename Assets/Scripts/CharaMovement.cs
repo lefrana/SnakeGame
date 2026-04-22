@@ -13,7 +13,7 @@ public class CharaMovement : MonoBehaviour
 
     public SnakeBodyManager bodyManager;
 
-    public Tilemap wallTilemap; // FIX ADDED HERE
+    public Tilemap wallTilemap;
 
     void Update()
     {
