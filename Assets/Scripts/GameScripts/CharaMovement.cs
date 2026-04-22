@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class CharaMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CharaMovement : MonoBehaviour
     public SnakeBodyManager bodyManager;
 
     public Tilemap wallTilemap;
+    public TextMeshProUGUI gameOverText;
 
     void Update()
     {
@@ -80,9 +82,19 @@ public class CharaMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
+    //public void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.CompareTag("SnakeBody"))
+    //    {
+    //        GameOver();
+    //    }
+    //}
+
     public void GameOver()
     {
         isGameOver = true;
-        Debug.Log("Game Over");
+        //Debug.Log("Game Over");
+
+        gameOverText.text = "game over.";
     }
 }

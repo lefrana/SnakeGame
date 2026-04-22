@@ -157,6 +157,7 @@ MonoBehaviour:
   tileSize: 0.5
   bodyManager: {fileID: 2056158150}
   wallTilemap: {fileID: 1167797728}
+  gameOverText: {fileID: 1885146336}
 --- !u!61 &18387351
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -624,7 +625,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9029649, g: 0.72407556, b: 0.8305034, a: 1}
+  m_BackGroundColor: {r: 0.8901961, g: 0.65882355, b: 0.7294118, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5429,7 +5430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1885146335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5469,7 +5470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: game over.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 08c0e67060628654b9237ac8c1d69c6c, type: 2}
   m_sharedMaterial: {fileID: 7343104685917454551, guid: 08c0e67060628654b9237ac8c1d69c6c, type: 2}
