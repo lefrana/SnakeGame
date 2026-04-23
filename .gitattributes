@@ -1,2 +1,16 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Force all C# to be treated as C#
+*.cs linguist-language=C#
+
+# Unity shader files
+*.shader linguist-language=C#
+*.compute linguist-language=C#
+*.hlsl linguist-language=C#
+
+# Unity UI
+*.uxml linguist-language=XML
+*.uss linguist-language=CSS
+
+# Ignore non-code Unity files
+*.meta linguist-vendored
+*.unity linguist-vendored
+*.prefab linguist-vendored
