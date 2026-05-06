@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class CherryManager : MonoBehaviour
 {
-    public CherryGenerator      cherryGenerator;
-    public SnakeBodyManager     snakeBodyManager;
-    public ScoreManager         scoreManager;
+    public CherryGenerator cherryGenerator;
+    public SnakeBodyManager snakeBodyManager;
+    public ScoreManager scoreManager;
+
+    public AudioSource cherryAudio;
+    public AudioClip cherrySfx;
 
     void Start()
     {
@@ -17,13 +20,14 @@ public class CherryManager : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            cherryAudio.PlayOneShot(cherrySfx);
             scoreManager.AddScore();
 
             //grow snake body
-            snakeBodyManager.Grow(transform.position - new Vector3(-10.0f, 0, 0));
+            snakeBodyManager.Grow(transform.position - new Vector3(1000.0f, 1000.0f, 0));
 
             cherryGenerator.SpawnCherry();
-            Destroy(gameObject);
+            Destroy(gameObject, 0.2f);
         }
     }
 }

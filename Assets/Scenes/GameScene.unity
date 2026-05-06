@@ -156,6 +156,7 @@ MonoBehaviour:
   moveDelay: 0.8
   tileSize: 0.5
   bodyManager: {fileID: 2056158150}
+  scoreManager: {fileID: 0}
   wallTilemap: {fileID: 1167797728}
   gameOverText: {fileID: 1885146336}
 --- !u!61 &18387351
@@ -192,7 +193,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.063657045, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -202,7 +203,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.3726859, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &18387352
 Rigidbody2D:
@@ -5447,7 +5448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 0}
+  m_AnchoredPosition: {x: 100, y: 504}
   m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885146336

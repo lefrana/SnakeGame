@@ -4,37 +4,83 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    public GameObject titleText;
-    float timer = 0.0f;
+    public GameObject instructionText;
+    public TextMeshProUGUI titleText;
+
+    float instructionTimer = 0.0f;
+
+    string fullTitle = "<snake>";
+    float textInterval = 0.3f;
+    float textTimer = 0.0f;
+    int currentIndex = 0;
+
+    public AudioSource titleAudio;
+    public AudioSource startAudio;
+    public AudioClip titleSfx;
+    public AudioClip startSfx;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("GameScene");
+            startAudio.PlayOneShot(startSfx);
+            Invoke("LoadGame", 0.3f);
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
 
-        //title text effect
-        timer += Time.deltaTime;
-        if (timer % 2.0f == 0.0f)
-        {
-            SetAlpha(titleText, 3.0f);
-        }
-        else
-        {
-            SetAlpha(titleText, 0.0f);
-        }
+        ShowTitle();
+        ShowInstructions();
+
+    }
+
+    void LoadGame()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     void SetAlpha(GameObject obj, float alpha)
     {
-        TextMeshProUGUI text = GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI text = obj.GetComponent<TextMeshProUGUI>();
         Color color = text.color;
         color.a = alpha;
         text.color = color;
+    }
+
+    void ShowInstructions()
+    {
+        instructionTimer += Time.deltaTime;
+
+        if (instructionTimer >= 0.5f)
+        {
+            SetAlpha(instructionText, 1.0f);
+
+            if (instructionTimer >= 1.0f)
+            {
+                instructionTimer = 0f;
+            }
+        }
+        else
+        {
+            SetAlpha(instructionText, 0.0f);
+        }
+    }
+
+    void ShowTitle()
+    {
+        textTimer += Time.deltaTime;
+
+        if (textTimer >= textInterval && currentIndex < fullTitle.Length)
+        {
+            currentIndex++;
+
+            titleText.text = fullTitle.Substring(0, currentIndex);
+
+            titleAudio.PlayOneShot(titleSfx);
+
+            textTimer = 0f;
+        }
     }
 }

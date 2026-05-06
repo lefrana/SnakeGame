@@ -6,6 +6,8 @@ public class CharaMovement : MonoBehaviour
 {
     public Vector2 direction = Vector2.right;
     public float moveDelay = 0.3f;
+    int lastScore = 0; //for managing score to increase speed
+    //bool canDie = false; //to prevent immediate death when game starts
 
     private float timer;
     private bool isGameOver = false;
@@ -13,9 +15,15 @@ public class CharaMovement : MonoBehaviour
     public float tileSize = 0.5f;
 
     public SnakeBodyManager bodyManager;
+    public ScoreManager scoreManager;
 
     public Tilemap wallTilemap;
     public TextMeshProUGUI gameOverText;
+
+    void Start()
+    {
+        scoreManager = FindFirstObjectByType<ScoreManager>();
+    }
 
     void Update()
     {
@@ -29,6 +37,13 @@ public class CharaMovement : MonoBehaviour
             timer = 0f;
             Move();
         }
+
+        if (scoreManager.score != lastScore)
+        {
+            lastScore = scoreManager.score;
+            IncreaseSpeed();
+        }
+
     }
 
     void HandleInput()
@@ -73,22 +88,48 @@ public class CharaMovement : MonoBehaviour
     void UpdateRotation()
     {
         if (direction == Vector2.up)
+        {
             transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
         else if (direction == Vector2.down)
+        {
             transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
         else if (direction == Vector2.left)
+        {
             transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
         else if (direction == Vector2.right)
+        {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
-    //public void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.CompareTag("SnakeBody"))
-    //    {
-    //        GameOver();
-    //    }
-    //}
+    void IncreaseSpeed()
+    {
+        if (scoreManager.score % 1 == 0)
+        {
+            moveDelay -= 0.03f;
+
+            if (moveDelay < 0.03f)
+            {
+                moveDelay = 0.03f;
+            }
+        }
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (bodyManager.bodyParts.Count > 0 &&
+            collision.transform == bodyManager.bodyParts[0])
+        {
+            return;
+        }
+
+        if (collision.CompareTag("SnakeBody"))
+        {
+            GameOver();
+        }
+    }
 
     public void GameOver()
     {
