@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CharaMovement : MonoBehaviour
 {
     public Vector2 direction = Vector2.right;
     public float moveDelay = 0.3f;
     int lastScore = 0; //for managing score to increase speed
-    //bool canDie = false; //to prevent immediate death when game starts
 
     private float timer;
     private bool isGameOver = false;
@@ -20,6 +20,9 @@ public class CharaMovement : MonoBehaviour
     public Tilemap wallTilemap;
     public TextMeshProUGUI gameOverText;
 
+    public AudioSource gameOverAudio;
+    public AudioClip gameOverSfx;
+
     void Start()
     {
         scoreManager = FindFirstObjectByType<ScoreManager>();
@@ -27,7 +30,15 @@ public class CharaMovement : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver) return;
+        if (isGameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+
+            return;
+        }
 
         HandleInput();
 
@@ -63,6 +74,11 @@ public class CharaMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightArrow) && direction != Vector2.left)
         {
             direction = Vector2.right;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -137,5 +153,15 @@ public class CharaMovement : MonoBehaviour
         //Debug.Log("Game Over");
 
         gameOverText.text = "game over.";
+        gameOverAudio.PlayOneShot(gameOverSfx);
+        Invoke("LoadTitle", 1.0f);
+    }
+
+    void LoadTitle()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 }

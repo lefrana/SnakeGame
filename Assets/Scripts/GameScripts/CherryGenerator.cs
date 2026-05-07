@@ -17,7 +17,6 @@ public class CherryGenerator : MonoBehaviour
 
     public void SpawnCherry()
     {
-        //pick random pos
         Vector2 randomPos = new Vector2(
             Random.Range(minBounds.x, maxBounds.x),
             Random.Range(minBounds.y, maxBounds.y)
