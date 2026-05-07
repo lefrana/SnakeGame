@@ -12,6 +12,9 @@ public class CharaMovement : MonoBehaviour
     private float timer;
     private bool isGameOver = false;
 
+    //to prevent overlapping input bug
+    private bool canInput = true;
+
     public float tileSize = 0.5f;
 
     public SnakeBodyManager bodyManager;
@@ -37,6 +40,11 @@ public class CharaMovement : MonoBehaviour
                 Application.Quit();
             }
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+
             return;
         }
 
@@ -47,6 +55,8 @@ public class CharaMovement : MonoBehaviour
         {
             timer = 0f;
             Move();
+
+            canInput = true;
         }
 
         if (scoreManager.score != lastScore)
@@ -59,21 +69,30 @@ public class CharaMovement : MonoBehaviour
 
     void HandleInput()
     {
+        if(!canInput)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && direction != Vector2.down)
         {
             direction = Vector2.up;
+            canInput = false;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) && direction != Vector2.up)
         {
             direction = Vector2.down;
+            canInput = false;
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow) && direction != Vector2.right)
         {
             direction = Vector2.left;
+            canInput = false;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow) && direction != Vector2.left)
         {
             direction = Vector2.right;
+            canInput = false;
         }
 
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -154,14 +173,5 @@ public class CharaMovement : MonoBehaviour
 
         gameOverText.text = "game over.";
         gameOverAudio.PlayOneShot(gameOverSfx);
-        Invoke("LoadTitle", 1.0f);
-    }
-
-    void LoadTitle()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("TitleScene");
-        }
     }
 }
